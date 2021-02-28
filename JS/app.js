@@ -149,12 +149,8 @@ function handelClick(event) {
 
 
 imageSection.addEventListener('click', handelClick);
-
-
 function randomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 renderNewProducts();
-
-
