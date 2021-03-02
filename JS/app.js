@@ -110,6 +110,9 @@ function renderNewProducts() {
   Products.all[centerIndex].shown++;
   Products.all[rightIndex].shown++;
 
+  localStorage.setItem( 'Products', JSON.stringify( Products.all ) );
+
+
 }
 
 
@@ -177,6 +180,18 @@ function randomNumber(min, max) {
 
   } return (nextIndex) ;
 }
+
+function getData() {
+  const data = localStorage.getItem( 'Products' );
+
+  if( data ) {
+    const objData = JSON.parse( data );
+    Products.all = objData;
+    renderNewProduct();
+  }
+}
+
+getData();
 
 renderNewProducts();
 
