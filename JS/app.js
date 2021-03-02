@@ -36,8 +36,6 @@ let Resultbutton = document.getElementById('resultButton');
 Resultbutton.style.visibility='hidden';
 
 
-
-
 function Products(name) {
   this.name = name;
 
@@ -60,7 +58,7 @@ Products.counter = 0;
 let leftProductsIndex = 0 ;
 let rightProductsIndex = 0 ;
 let centerProductsIndex = 0 ;
-
+let previousIndex = [];
 
 for (let i = 0; i < productsArray.length; i++) {
   new Products(productsArray[i]);
@@ -71,35 +69,38 @@ function renderNewProducts() {
 
 
   let leftIndex = 0;
-  do {
 
-    leftIndex= randomNumber(0, Products.all.length - 1);
 
-  } while( leftIndex === leftProductsIndex || leftIndex === rightProductsIndex || leftIndex === centerProductsIndex );
+  leftIndex = randomNumber(0, Products.all.length - 1);
+
   leftImage.src = Products.all[leftIndex].image;
   leftImage.alt = Products.all[leftIndex].name;
   leftProductsIndex = leftIndex;
 
+  previousIndex.push(leftIndex);
+
   let rightIndex = 0;
   do {
     rightIndex = randomNumber(0, Products.all.length - 1);
-  } while (leftIndex === rightIndex || rightIndex === leftProductsIndex || rightIndex === rightProductsIndex || rightIndex === centerProductsIndex);
+  } while (leftIndex === rightIndex);
 
   rightImage.src = Products.all[rightIndex].image;
   rightImage.alt = Products.all[rightIndex].name;
   rightProductsIndex = rightIndex;
+
+  previousIndex.push(rightIndex);
 
   let centerIndex = 0;
 
   do {
     centerIndex = randomNumber(0, Products.all.length - 1);
 
-  } while (leftIndex === centerIndex || centerIndex === rightIndex || centerIndex === leftProductsIndex || centerIndex === rightProductsIndex || centerIndex === centerProductsIndex );
-
+  } while (leftIndex === centerIndex || centerIndex === rightIndex);
 
   centerImage.src = Products.all[centerIndex].image;
   centerImage.alt = Products.all[centerIndex].name;
   centerProductsIndex = centerIndex;
+  previousIndex.push(centerIndex);
 
 
   Products.all[leftIndex].shown++;
@@ -107,8 +108,6 @@ function renderNewProducts() {
   Products.all[rightIndex].shown++;
 
 }
-
-
 
 
 function handelClick(event) {
@@ -162,8 +161,18 @@ function handelClick(event) {
 
 
 imageSection.addEventListener('click', handelClick);
+
+
 function randomNumber(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+  let nextIndex = Math.floor(Math.random() * (max - min + 1)) + min;
+  for (let i = 0; i < previousIndex.length; i++) {
+    if (nextIndex === previousIndex[i])
+    {
+      nextIndex = Math.floor(Math.random() * (max - min + 1)) + min;
+
+    }
+
+  } return (nextIndex) ;
 }
 
 renderNewProducts();
