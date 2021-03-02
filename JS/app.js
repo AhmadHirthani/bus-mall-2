@@ -187,12 +187,11 @@ function getData() {
   if( data ) {
     const objData = JSON.parse( data );
     Products.all = objData;
-    renderNewProduct();
+    renderNewProducts();
   }
 }
 
 getData();
-
 renderNewProducts();
 
 
