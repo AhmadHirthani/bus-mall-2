@@ -36,9 +36,9 @@ let Resultbutton = document.getElementById('resultButton');
 Resultbutton.style.visibility='hidden';
 
 
-function Products(name) {
+function Products(name , image) {
   this.name = name;
-
+  //this.image = `./img/${image}`;
   if (this.name === 'sweep') {
     this.image = `./img/${name}.png`;
   } else if (this.name === 'usb') {
@@ -47,12 +47,15 @@ function Products(name) {
     this.image = `./img/${name}.jpg`;
   }
 
+
   this.clicks = 0;
   this.shown = 0;
   Products.all.push(this);
 
 }
-
+/*function getName( fileName ) {
+  return fileName.split( '.' ).slice( 0, -1 ).join( '.' );
+}*/
 Products.all = [];
 Products.counter = 0;
 let leftProductsIndex = 0 ;
